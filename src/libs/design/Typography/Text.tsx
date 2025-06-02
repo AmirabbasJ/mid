@@ -14,7 +14,7 @@ const sizeMap = {
 
 export const Text = ({ size = 'base', muted = false, className, children, ...props }: TextProps) => {
   return (
-    <p className={cn(sizeMap[size], muted ? 'text-gray-400' : 'text-gray-100', 'leading-relaxed', className)} {...props}>
+    <p className={cn(sizeMap[size], muted ? 'text-gray-500' : 'text-gray-100', 'leading-relaxed', className)} {...props}>
       {children}
     </p>
   );
