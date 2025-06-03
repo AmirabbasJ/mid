@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, useInView, type Variants } from 'motion/react';
 import { useRef } from 'react';
 

@@ -1,8 +1,10 @@
+'use client';
+
 import { type EmblaCarouselType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight, Flame, Star, TrendingUp } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
-import { cn } from '../utils/cn';
+import { cn } from '../../utils/cn';
 import './embla.css';
 import { MarketBox } from './MarketBox';
 

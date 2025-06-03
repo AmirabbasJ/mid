@@ -1,6 +1,9 @@
+'use client';
+
 import { motion, useInView, type Variants } from 'motion/react';
-import * as React from 'react';
+import { useRef } from 'react';
 import { cn } from '../../../utils/cn';
+import { Text, type TextProps } from '../Typography/Text';
 
 const pullupVariant: Variants = {
   initial: { y: -20, opacity: 0, filter: 'blur(5px)' },
@@ -14,14 +17,13 @@ const pullupVariant: Variants = {
   }),
 };
 
-interface Props {
+interface Props extends TextProps {
   text: string;
-  className: string;
-  component?: React.FC<{ children: React.ReactNode }>;
+  containerClassName: string;
 }
 
-export function FadeUpWords({ text, component: Component, className }: Props) {
-  const ref = React.useRef(null);
+export function FadeUpWords({ text, containerClassName: className, ...textProps }: Props) {
+  const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
   const splittedText = text.split(' ');
@@ -41,7 +43,7 @@ export function FadeUpWords({ text, component: Component, className }: Props) {
             custom={i}
             className={cn('tracking-tighter pr-1')}
           >
-            {Component ? <Component>{output}</Component> : output}
+            <Text {...textProps}>{output}</Text>
           </motion.div>
         );
       })}

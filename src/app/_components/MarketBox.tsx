@@ -1,7 +1,9 @@
+'use client';
+
 import { type LucideIcon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import { Badge } from '../libs/design/Badge';
+import { Badge } from '../../libs/design/Badge';
 
 interface Props {
   title: string;
