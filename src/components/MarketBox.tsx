@@ -56,7 +56,7 @@ export function MarketBox({ icon: Icon, title }: Props) {
       onClick={() => {
         setCoins(p => [...p.slice(1), p[0]]);
       }}
-      className="bg-[#12131C] w-full rounded-2xl flex flex-col gap-4 items-start p-4 text-sm shadow-lg border border-white/15"
+      className="bg-[#12131C] rounded-2xl flex flex-col gap-4 items-start p-4 text-sm shadow-lg border border-white/15"
     >
       <Badge icon={Icon}>{title}</Badge>
       <ul className="space-y-4 w-full">
