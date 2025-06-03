@@ -9,7 +9,7 @@ const pullupVariant: Variants = {
     opacity: 1,
     filter: 'blur(0px)',
     transition: {
-      delay: i * 0.1,
+      delay: i * 0.05,
     },
   }),
 };
