@@ -65,26 +65,34 @@ function genRandomPrice(price: number) {
   const change = (Math.random() - 0.5) * 0.1;
   return +(price * (1 + change)).toFixed(2);
 }
+interface Config {
+  enabled?: boolean;
+}
 
-export const usePrices = () => {
+export const usePrices = ({ enabled = true }: Config = {}) => {
   const [coins, setCoins] = useState(initialCoins);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setCoins(cs => {
-        const index = randomItemIndex(cs.length);
-        const item = cs[index]!;
-        const newPrice = genRandomPrice(item.price);
-        const newCoins = cs.map((c, i) =>
-          i === index ? { ...item, price: newPrice, change: Number.parseFloat((newPrice - item.price).toFixed(2)) } : c,
-        );
-        return toSorted(newCoins, (a, b) => b.change - a.change);
-      });
-    }, 2000);
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
+    if (enabled) {
+      console.log('started updating');
+      const id = setInterval(() => {
+        setCoins(cs => {
+          const index = randomItemIndex(cs.length);
+          const item = cs[index]!;
+          const newPrice = genRandomPrice(item.price);
+          const newCoins = cs.map((c, i) =>
+            i === index ? { ...item, price: newPrice, change: Number.parseFloat((newPrice - item.price).toFixed(2)) } : c,
+          );
+          return toSorted(newCoins, (a, b) => b.change - a.change);
+        });
+      }, 5000);
+      return () => {
+        clearInterval(id);
+      };
+    }
+    console.log('updating disabled');
+    return;
+  }, [enabled]);
 
   return coins;
 };

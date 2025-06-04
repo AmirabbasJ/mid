@@ -1,10 +1,12 @@
 .embla {
+  --icon-size: 22px;
   --slide-height: 19rem;
   --slide-spacing: 1rem;
   --slide-size: 100%;
 }
 .embla__viewport {
   overflow: hidden;
+  padding: 0 calc(var(--icon-size) / 2);
 }
 
 .embla__container {

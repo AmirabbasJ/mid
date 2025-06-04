@@ -40,8 +40,8 @@ export const MarketSectionMobile = () => {
             onPrevButtonClick();
           }}
           className={cn(
-            'embla__prev bg-gray-500/90 p-1.5 rounded-full absolute top-[50%] translate-y-[-50%] left-5 translate-x-[-50%] z-10',
-            !prevBtnDisabled ? '' : 'opacity-50',
+            'embla__prev cursor-pointer bg-gray-500/90 p-1.5 rounded-full absolute top-[50%] translate-y-[-50%] left-6 ml-[11px] translate-x-[-50%] z-10',
+            { 'opacity-50': prevBtnDisabled },
           )}
         >
           <ChevronLeft className="w-4 h-4 text-white"></ChevronLeft>
@@ -51,8 +51,8 @@ export const MarketSectionMobile = () => {
             onNextButtonClick();
           }}
           className={cn(
-            'embla__next bg-gray-500/90 p-1.5 rounded-full absolute top-[50%] translate-y-[-50%] right-5 translate-x-[50%] z-10',
-            !nextBtnDisabled ? '' : 'opacity-50',
+            'embla__next cursor-pointer bg-gray-500/90 p-1.5 rounded-full absolute top-[50%] translate-y-[-50%] right-6 mr-[11px] translate-x-[50%] z-10',
+            { 'opacity-50': nextBtnDisabled },
           )}
         >
           <ChevronRight className="w-4 h-4 text-white"></ChevronRight>
@@ -63,7 +63,7 @@ export const MarketSectionMobile = () => {
           <button
             key={index}
             onClick={() => onDotButtonClick(index)}
-            className={cn('w-2 h-2 rounded-full ', index === selectedIndex ? 'bg-indigo-500' : 'bg-gray-300')}
+            className={cn('cursor-pointer w-2 h-2 rounded-full ', index === selectedIndex ? 'bg-indigo-500' : 'bg-gray-300')}
           />
         ))}
       </div>
