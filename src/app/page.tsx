@@ -2,8 +2,8 @@ import { ArrowRight, BarChart2 } from 'lucide-react';
 import { FadeUpText } from '../libs/design/Effects/FadeUpText';
 import { FadeUpWords } from '../libs/design/Effects/FadeUpWords';
 import { Halo } from '../libs/design/Effects/Halo';
-import { Layout } from '../libs/design/Layout';
 import { Title } from '../libs/design/Typography/Title';
+import { Layout } from './_components/Layout';
 import { MarketSection } from './_components/MarketSection/MarketSection';
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
             muted
             text="Want to buy Bitcoin outright or trade CFDs on Gold or EUR/USD? We've got you covered with access to 100+ global markets on one platform"
           />
-          <button className="text-md flex items-center justify-center gap-2 px-10 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition">
+          <button className="cursor-pointer text-md flex items-center justify-center gap-2 px-10 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition">
             View All coins
             <ArrowRight className="w-4 h-4" />
           </button>

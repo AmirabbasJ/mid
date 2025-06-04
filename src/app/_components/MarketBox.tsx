@@ -4,6 +4,7 @@ import { type LucideIcon } from 'lucide-react';
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { usePrices } from '../../hooks/usePrices';
 import { Badge } from '../../libs/design/Badge';
+import { SubNumber } from '../../libs/design/SubNumber';
 
 interface Props {
   title: string;
@@ -44,7 +45,9 @@ export function MarketBox({ icon: Icon, title }: Props) {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-gray-400">{coin.price}</div>
+                  <div className="text-gray-400">
+                    <SubNumber value={coin.price}></SubNumber>
+                  </div>
                   <div className={`text-xs ${coin.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>{coin.change}</div>
                 </div>
               </motion.li>
