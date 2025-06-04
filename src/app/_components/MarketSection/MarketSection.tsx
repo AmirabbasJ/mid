@@ -1,4 +1,4 @@
-import { MarketSectionDesktop } from './MarketSectionDekstop';
+import { MarketSectionDesktop } from './MarketSectionDesktop';
 import { MarketSectionMobile } from './MarketSectionMobile';
 
 export const MarketSection = () => {
