@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@/utils';
 import { motion, useInView, type Variants } from 'motion/react';
 import { useRef } from 'react';
-import { cn } from '../../../utils/cn';
 import { Text, type TextProps } from '../Typography/Text';
 
 const pullupVariant: Variants = {

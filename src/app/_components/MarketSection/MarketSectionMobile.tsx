@@ -1,8 +1,8 @@
 'use client';
 
-import { ChevronLeft, ChevronRight, Flame, Star, TrendingUp } from 'lucide-react';
-import { useSlider } from '../../../hooks/slider/useSlider';
-import { cn } from '../../../utils/cn';
+import { ChevronLeft, ChevronRight, Flame, Star, TrendingUp } from '@/assets/icons';
+import { useSlider } from '@/hooks';
+import { cn } from '@/utils';
 import { MarketBox } from '../MarketBox';
 
 export const MarketSectionMobile = () => {

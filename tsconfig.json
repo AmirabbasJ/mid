@@ -27,7 +27,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "noEmit": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src", "./dist/types/**/*.ts", "./next-env.d.ts"],
   "exclude": ["./node_modules"]

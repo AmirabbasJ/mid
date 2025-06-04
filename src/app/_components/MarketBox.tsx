@@ -1,11 +1,10 @@
 'use client';
 
-import { Settings2, type LucideIcon } from 'lucide-react';
+import { Settings2, type LucideIcon } from '@/assets/icons';
+import { usePrices } from '@/hooks';
+import { Badge, SubNumber } from '@/libs/design';
 import { AnimatePresence, LayoutGroup, motion, useInView } from 'motion/react';
 import { useRef } from 'react';
-import { usePrices } from '../../hooks/usePrices';
-import { Badge } from '../../libs/design/Badge';
-import { SubNumber } from '../../libs/design/SubNumber';
 
 interface Props {
   title: string;
@@ -35,7 +34,7 @@ export function MarketBox({ icon: Icon, title }: Props) {
       <LayoutGroup>
         <ul className="h-[260px] overflow-hidden w-full ">
           <AnimatePresence initial={false}>
-            {coins.map(coin => (
+            {coins.map(({ icon: Icon, ...coin }) => (
               <motion.div initial="default" whileHover="hover" key={coin.symbol} className="flex  items-center">
                 <motion.li
                   layout
@@ -52,7 +51,7 @@ export function MarketBox({ icon: Icon, title }: Props) {
                   className="peer cursor-pointer hover:bg-black/30 transition-colors py-2 px-4 flex items-center justify-between w-full"
                 >
                   <div className="flex items-center gap-3">
-                    <img src={coin.icon} alt={coin.symbol} className="w-6 h-6" />
+                    <Icon className="w-6 h-6" />
                     <div className="text-gray-200">
                       {coin.symbol} <span className="text-xs text-gray-500">({coin.pair})</span>
                     </div>

@@ -1,4 +1,4 @@
-import { floorDec } from '../../utils/floorDec';
+import { floorDec } from '@/utils';
 
 interface Props {
   value: number;

@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@/utils';
 import { motion, useInView, type Variants } from 'motion/react';
 import { useRef } from 'react';
-import { cn } from '../../../utils/cn';
 
 interface HaloProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: number;

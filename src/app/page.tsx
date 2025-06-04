@@ -1,12 +1,9 @@
-import { ArrowRight, BarChart2 } from 'lucide-react';
-import { FadeUpText } from '../libs/design/Effects/FadeUpText';
-import { FadeUpWords } from '../libs/design/Effects/FadeUpWords';
-import { Halo } from '../libs/design/Effects/Halo';
-import { Title } from '../libs/design/Typography/Title';
-import { Layout } from './_components/Layout';
-import { MarketSection } from './_components/MarketSection/MarketSection';
+import { ArrowRight, BarChart2 } from '@/assets/icons';
+import { Layout } from '@/layouts';
+import { FadeUpText, FadeUpWords, Halo, Title } from '@/libs/design';
+import { MarketSection } from './_components';
 
-function App() {
+function Home() {
   return (
     <Layout>
       <div className="h-screen"></div>
@@ -44,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

@@ -1,6 +1,6 @@
 'use client';
 
-import { Flame, Star, TrendingUp } from 'lucide-react';
+import { Flame, Star, TrendingUp } from '@/assets/icons';
 import { MarketBox } from '../MarketBox';
 
 export const MarketSectionDesktop = () => {

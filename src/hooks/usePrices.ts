@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { randomItemIndex } from '../utils/randomItemIndex';
-import { toSorted } from '../utils/toSorted';
+import { randomItemIndex, toSorted } from '@/utils';
+import { useEffect, useState, type FC, type SVGProps } from 'react';
+import { Btc, Doge, Eth, Popcat, Shiba, Tether, Ton } from '../assets/icons';
 
 export interface Coin {
   symbol: string;
   pair: string;
   price: number;
   change: number;
-  icon: string;
+  icon: FC<SVGProps<SVGElement>>;
 }
 const initialCoins: Coin[] = [
   {
@@ -15,49 +15,49 @@ const initialCoins: Coin[] = [
     pair: 'BTCUSDT',
     price: 109669.24,
     change: 0.018,
-    icon: '/icons/btc.svg',
+    icon: Btc,
   },
   {
     symbol: 'ETH',
     pair: 'ETHUSDT',
     price: 2644.28,
     change: 0.05,
-    icon: '/icons/eth.svg',
+    icon: Eth,
   },
   {
     symbol: 'TON',
     pair: 'TONUSDT',
     price: 2.98,
     change: 0.056,
-    icon: '/icons/ton.svg',
+    icon: Ton,
   },
   {
     symbol: 'DOGE',
     pair: 'DOGEUSDT',
     price: 0.23,
     change: 0.035,
-    icon: '/icons/doge.svg',
+    icon: Doge,
   },
   {
-    symbol: 'SOL',
-    pair: 'SOLUSDT',
+    symbol: 'POPCAT',
+    pair: 'POPCATUSDT',
     price: 175.3,
     change: 0.087,
-    icon: '/icons/solana.svg',
+    icon: Popcat,
   },
   {
     symbol: 'SHB',
     pair: 'SHIBUSD',
     price: 235.3,
     change: 1.67,
-    icon: '/icons/shiba.svg',
+    icon: Shiba,
   },
   {
     symbol: 'USDT',
     pair: 'USDT',
     price: 541.98,
     change: 3.51,
-    icon: '/icons/tether.svg',
+    icon: Tether,
   },
 ];
 

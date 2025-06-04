@@ -1,4 +1,4 @@
-import { cn } from '../../../utils/cn';
+import { cn } from '@/utils';
 
 interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
