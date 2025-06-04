@@ -4,7 +4,7 @@ import { FadeUpWords } from '../libs/design/Effects/FadeUpWords';
 import { Halo } from '../libs/design/Effects/Halo';
 import { Layout } from '../libs/design/Layout';
 import { Title } from '../libs/design/Typography/Title';
-import { MarketSection } from './_components/MarketSection';
+import { MarketSection } from './_components/MarketSection/MarketSection';
 
 function App() {
   return (

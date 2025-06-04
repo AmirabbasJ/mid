@@ -1,4 +1,5 @@
 import './globals.css';
+import './slider.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
