@@ -1,6 +1,4 @@
-# Next.js App
-
-This is a [Next.js](https://nextjs.org/) challenge application.
+# Pulse Frontend Challenge
 
 ## Prerequisites
 

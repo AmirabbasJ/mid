@@ -5,7 +5,7 @@ import '../styles/slider.css';
 
 export const metadata: Metadata = {
   title: 'Frontend Challenge',
-  description: 'Pulse Frontend Challenge.',
+  description: 'Pulse Frontend Challenge',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
