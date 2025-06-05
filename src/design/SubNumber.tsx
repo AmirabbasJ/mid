@@ -1,4 +1,4 @@
-import { floorDec } from '@/utils';
+import { floorDec, separateThousand } from '@/utils';
 
 interface Props {
   value: number;
@@ -7,7 +7,7 @@ interface Props {
 
 export const SubNumber = ({ value, decimalScale = 8 }: Props) => {
   const match = /(\d+\.\d)(0{5,})(\d+)/.exec(String(value))!;
-  if (!match) return floorDec(value, decimalScale);
+  if (!match) return separateThousand(floorDec(value, decimalScale));
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, firstHalf, zeros, secondHalf] = match;
@@ -16,7 +16,7 @@ export const SubNumber = ({ value, decimalScale = 8 }: Props) => {
 
   return (
     <>
-      {firstHalf}
+      {separateThousand(firstHalf!)}
       <sub>{zeros?.length}</sub>
       {secondHalfNumber}
     </>
