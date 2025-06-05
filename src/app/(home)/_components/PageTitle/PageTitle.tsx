@@ -1,7 +1,7 @@
 'use client';
 
+import { ArrowDown } from '@/assets/icons';
 import { Title } from '@/design';
-import { ArrowDown } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const PageTitle = () => {
