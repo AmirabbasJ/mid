@@ -1,2 +1,2 @@
-export * from './MarketBox';
+export * from './MarketBox/MarketBox';
 export * from './MarketSection';

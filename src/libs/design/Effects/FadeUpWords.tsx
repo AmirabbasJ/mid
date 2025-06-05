@@ -22,7 +22,7 @@ interface Props extends TextProps {
   containerClassName: string;
 }
 
-export function FadeUpWords({ text, containerClassName: className, ...textProps }: Props) {
+export const FadeUpWords = ({ text, containerClassName: className, ...textProps }: Props) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -49,4 +49,4 @@ export function FadeUpWords({ text, containerClassName: className, ...textProps 
       })}
     </div>
   );
-}
+};

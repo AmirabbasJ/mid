@@ -13,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-export function FadeUpText({ children, className = '' }: Props) {
+export const FadeUpText = ({ children, className = '' }: Props) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   return (
@@ -21,4 +21,4 @@ export function FadeUpText({ children, className = '' }: Props) {
       {children}
     </motion.div>
   );
-}
+};

@@ -61,19 +61,21 @@ const initialCoins: Coin[] = [
   },
 ];
 
-function genRandomPrice(price: number) {
+const genRandomPrice = (price: number) => {
   const change = (Math.random() - 0.5) * 0.1;
   return +(price * (1 + change)).toFixed(2);
-}
+};
+
 interface Config {
   enabled?: boolean;
 }
 
 export const usePrices = ({ enabled = true }: Config = {}) => {
   const [coins, setCoins] = useState(initialCoins);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (enabled) {
+    if (enabled && !loading) {
       console.log('started updating');
       const id = setInterval(() => {
         setCoins(cs => {
@@ -90,9 +92,15 @@ export const usePrices = ({ enabled = true }: Config = {}) => {
         clearInterval(id);
       };
     }
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
     console.log('updating disabled');
-    return;
-  }, [enabled]);
 
-  return coins;
+    return;
+  }, [enabled, loading, setLoading]);
+
+  return { coins, loading };
 };
