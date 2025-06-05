@@ -1,13 +1,16 @@
 import { ArrowRight, BarChart2 } from '@/assets/icons';
-import { Layout } from '@/layouts';
+import { MainLayout } from '@/layouts';
 import { FadeUpText, FadeUpWords, Halo, Title } from '@/libs/design';
 import { MarketSection } from './_components';
+import { PageTitle } from './_components/PageTitle';
 
 function Home() {
   return (
-    <Layout>
-      <div className="h-screen"></div>
-      <div className="h-screen"></div>
+    <MainLayout>
+      <div className="h-screen justify-center items-center flex">
+        <PageTitle />
+      </div>
+      <div className="h-60"></div>
       <div className="relative flex flex-col gap-8">
         <div className="flex flex-col gap-8 items-center px-6">
           <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-gray-300">
@@ -37,7 +40,7 @@ function Home() {
         <MarketSection />
       </div>
       <div className="h-screen"></div>
-    </Layout>
+    </MainLayout>
   );
 }
 

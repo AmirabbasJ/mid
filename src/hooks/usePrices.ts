@@ -1,14 +1,8 @@
+import type { Coin } from '@/domain';
 import { randomItemIndex, toSorted } from '@/utils';
-import { useEffect, useState, type FC, type SVGProps } from 'react';
+import { useEffect, useState } from 'react';
 import { Btc, Doge, Eth, Popcat, Shiba, Tether, Ton } from '../assets/icons';
 
-export interface Coin {
-  symbol: string;
-  pair: string;
-  price: number;
-  change: number;
-  icon: FC<SVGProps<SVGElement>>;
-}
 const initialCoins: Coin[] = [
   {
     symbol: 'BTC',
