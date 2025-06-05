@@ -65,7 +65,7 @@ interface Config {
 }
 
 export const usePrices = ({ enabled = true }: Config = {}) => {
-  const [coins, setCoins] = useState(initialCoins);
+  const [coins, setCoins] = useState<Coin[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -89,12 +89,13 @@ export const usePrices = ({ enabled = true }: Config = {}) => {
     if (loading) {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+        setCoins(initialCoins);
+      }, 500);
     }
     console.log('updating disabled');
 
     return;
   }, [enabled, loading, setLoading]);
 
-  return { coins, loading };
+  return { coins, loading: loading || !enabled };
 };
