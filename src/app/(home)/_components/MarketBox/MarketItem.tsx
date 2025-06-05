@@ -1,6 +1,6 @@
 import { Settings2 } from '@/assets/icons';
+import { SubNumber } from '@/design';
 import type { Coin } from '@/domain';
-import { SubNumber } from '@/libs/design';
 import { cn } from '@/utils';
 import { AnimatePresence, motion, type Variants } from 'motion/react';
 

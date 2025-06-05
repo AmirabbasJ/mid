@@ -1,8 +1,8 @@
 'use client';
 
 import { type LucideIcon } from '@/assets/icons';
+import { Badge } from '@/design';
 import { usePrices } from '@/hooks';
-import { Badge } from '@/libs/design';
 import { AnimatePresence, LayoutGroup, useInView } from 'motion/react';
 import { useRef } from 'react';
 import { LoadingMarketItems } from './LoadingMarketItems';

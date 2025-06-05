@@ -1,6 +1,6 @@
 import { ArrowRight, BarChart2 } from '@/assets/icons';
+import { FadeUpText, FadeUpWords, Halo, Title } from '@/design';
 import { MainLayout } from '@/layouts';
-import { FadeUpText, FadeUpWords, Halo, Title } from '@/libs/design';
 import { MarketSection } from './_components';
 import { PageTitle } from './_components/PageTitle';
 

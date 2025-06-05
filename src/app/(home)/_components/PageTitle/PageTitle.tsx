@@ -1,13 +1,13 @@
 'use client';
 
-import { Title } from '@/libs/design';
+import { Title } from '@/design';
 import { ArrowDown } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const PageTitle = () => {
   return (
     <div className="flex w-full justify-center items-center gap-4">
-      <Title className="text-center ">Please scroll down</Title>
+      <Title className="text-center">Please scroll down</Title>
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{
