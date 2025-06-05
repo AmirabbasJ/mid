@@ -1,5 +1,5 @@
 import { Settings2 } from '@/assets/icons';
-import { SubNumber } from '@/design';
+import { SubPrice } from '@/design';
 import type { Coin } from '@/domain';
 import { cn } from '@/utils';
 import { AnimatePresence, motion, type Variants } from 'motion/react';
@@ -38,7 +38,7 @@ export const MarketItem = ({ coin: { icon: Icon, ...coin } }: Props) => {
         </div>
         <div className="text-right">
           <div className="text-gray-400">
-            <SubNumber value={coin.price}></SubNumber>
+            <SubPrice value={coin.price}></SubPrice>
           </div>
           <div className={cn('text-xs', coin.change >= 0 ? 'text-emerald-600' : 'text-rose-700')}>
             {coin.change > 0 ? `+${coin.change}` : coin.change}

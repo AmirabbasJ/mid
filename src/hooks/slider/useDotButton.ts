@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 type UseDotButtonType = {
   selectedIndex: number;
   scrollSnaps: number[];
-  onDotButtonClick: (index: number) => void;
+  onDotButtonClick: (_index: number) => void;
 };
 
 export const useDotButton = (emblaApi: EmblaCarouselType | undefined): UseDotButtonType => {
