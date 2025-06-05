@@ -86,7 +86,7 @@ export const usePrices = ({ enabled = true }: Config = {}) => {
         clearInterval(id);
       };
     }
-    if (loading) {
+    if (loading && enabled) {
       setTimeout(() => {
         setLoading(false);
         setCoins(initialCoins);
@@ -97,5 +97,5 @@ export const usePrices = ({ enabled = true }: Config = {}) => {
     return;
   }, [enabled, loading, setLoading]);
 
-  return { coins, loading: loading || !enabled };
+  return { coins, loading: loading };
 };
