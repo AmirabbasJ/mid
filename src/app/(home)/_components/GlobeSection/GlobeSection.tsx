@@ -1,17 +1,21 @@
 'use client';
 
-import createGlobe from 'cobe';
+import createGlobe, { type COBEOptions } from 'cobe';
 import { motion, MotionValue, useTransform } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 interface Props {
   scrollProgress: MotionValue<number>;
+  isMobile?: boolean;
 }
 
-export const GlobeSection = ({ scrollProgress }: Props) => {
+export const GlobeSection = ({ scrollProgress, isMobile }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // const canvasRefMobile = useRef<HTMLCanvasElement>(null);
+
   const firstDropShadow = useTransform(scrollProgress, [0.3, 1], ['#000', '#91A0FF']);
   const secondDropShadow = useTransform(scrollProgress, [0.3, 1], ['#000', '#91A0FF60']);
+  const scale = useTransform(scrollProgress, [0.2, 1], [1, 1.5]);
 
   const filter = useTransform(() => {
     return `drop-shadow(0px 0px 1rem ${firstDropShadow.get()}) drop-shadow(0px 0px 10rem ${secondDropShadow.get()})`;
@@ -19,8 +23,7 @@ export const GlobeSection = ({ scrollProgress }: Props) => {
 
   useEffect(() => {
     let phi = 0;
-
-    const globe = createGlobe(canvasRef.current!, {
+    const setting: COBEOptions = {
       devicePixelRatio: 2,
       width: 600 * 2,
       height: 600 * 2,
@@ -40,23 +43,40 @@ export const GlobeSection = ({ scrollProgress }: Props) => {
         state['phi'] = phi;
         phi += 0.008;
       },
-    });
+    };
+    const globe = createGlobe(canvasRef.current!, setting);
+    // const globeMobile = createGlobe(canvasRef.current!, {...setting, width: 400 * 2, height: 00});
 
     return () => {
       globe.destroy();
+      // globeMobile.destroy();
     };
   }, []);
 
   return (
-    <motion.canvas
-      ref={canvasRef}
+    <>
+      <motion.canvas
+        ref={canvasRef}
+        style={{
+          scale: isMobile ? scale : 1,
+          width: 600,
+          height: 600,
+          maxWidth: '100%',
+          aspectRatio: 1,
+          filter: filter,
+        }}
+      />
+      {/* <motion.canvas
+      ref={canvasRefMobile}
+      className="md:hidden"
       style={{
-        width: 600,
-        height: 600,
+        width: 400,
+        height: 400,
         maxWidth: '100%',
         aspectRatio: 1,
         filter: filter,
       }}
-    />
+    /> */}
+    </>
   );
 };

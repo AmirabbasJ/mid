@@ -24,8 +24,8 @@ export function TotalTrades({ from, to }: Props) {
     });
 
   return (
-    <div className="px-8 bg-transparent text-white flex flex-col items-start justify-center gap-6">
-      <div className="text-left space-y-1">
+    <div className=" bg-transparent text-white flex flex-col md:items-start items-center justify-center gap-6">
+      <div className="md:text-left text-center space-y-1">
         <Title level={2} className="uppercase  text-indigo-500">
           Live trades
         </Title>
