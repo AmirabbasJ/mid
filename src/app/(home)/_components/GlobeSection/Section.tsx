@@ -3,11 +3,13 @@
 import { MoveDirection, type IOptions, type RecursivePartial } from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import { AnimatePresence, LayoutGroup, motion, useAnimationFrame, useMotionValue, useScroll, useTransform, wrap } from 'motion/react';
+import { AnimatePresence, motion, useAnimationFrame, useMotionValue, useScroll, useTransform, wrap } from 'motion/react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FadeUpText, FadeUpWords, Title } from '../../../../design';
 import { Card } from './Card';
 import { GlobeSection } from './GlobeSection';
+import { TotalTrades } from './TotalTrades';
+import { TradeCounter } from './TradeCounter';
 
 function ParallaxText({ direction = 'right' }: { direction?: 'left' | 'right' }) {
   const baseX = useMotionValue(0);
@@ -50,6 +52,8 @@ export const Section = () => {
 
   const skyOpacity = useTransform(scrollYProgress, [0.3, 0.7], [0, 1]);
   const skyY = useTransform(scrollYProgress, [0.3, 0.7], ['-200px', '0px']);
+
+  const tradeCountOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   const [init, setInit] = useState(false);
 
@@ -126,30 +130,37 @@ export const Section = () => {
           text="Join thousands of traders who trust Technance—backed by impressive stats and real user testimonials"
         />
       </div>
-      <LayoutGroup>
-        <AnimatePresence>
-          <motion.div ref={ref} className="h-[calc(800px)] pt-[100px] overflow-hidden flex flex-col relative w-full">
-            <div className="absolute w-full  flex justify-center z-10">
-              <motion.div style={{ top: globeY, left: globeX }} className="relative">
-                <GlobeSection scrollProgress={scrollYProgress} />
+      <AnimatePresence>
+        <motion.div ref={ref} className="h-[calc(800px)] pt-[100px] overflow-hidden flex flex-col relative w-full">
+          <div className="absolute w-full  flex justify-center z-10">
+            <motion.div style={{ top: globeY, left: globeX }} className="relative">
+              <motion.div
+                className="absolute flex items-center justify-center left-[50%] translate-[-50%] z-20 top-[50%] "
+                style={{ opacity: tradeCountOpacity }}
+              >
+                <TradeCounter from={1000} to={3_238_563} />
               </motion.div>
-            </div>
-            <motion.div style={{ opacity: slideShowOpacity, y: slideShowY }} className=" flex flex-col gap-5">
-              <ParallaxText />
-              <ParallaxText direction="left" />
+              <GlobeSection scrollProgress={scrollYProgress} />
             </motion.div>
-            <motion.div
-              style={{
-                bottom: skyY,
-                opacity: skyOpacity,
-              }}
-              className="absolute left-0  w-full"
-            >
-              {init ? <Particles id="tsparticles" className="w-full" options={options} /> : null}
-            </motion.div>
+          </div>
+          <motion.div style={{ opacity: slideShowOpacity, y: slideShowY }} className=" flex flex-col gap-5">
+            <ParallaxText />
+            <ParallaxText direction="left" />
           </motion.div>
-        </AnimatePresence>
-      </LayoutGroup>
+          <motion.div
+            style={{
+              bottom: skyY,
+              opacity: skyOpacity,
+            }}
+            className="absolute left-0 w-full"
+          >
+            {init ? <Particles id="tsparticles" className="w-full" options={options} /> : null}
+            <div className="absolute top-[50%] translate-y-[-50%]  left-0 ">
+              <TotalTrades from={1000} to={3_238_563} />
+            </div>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
