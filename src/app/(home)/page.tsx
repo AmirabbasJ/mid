@@ -1,7 +1,5 @@
-import { ArrowRight, BarChart2 } from '@/assets/icons';
-import { FadeUpText, FadeUpWords, Halo, Title } from '@/design';
 import { MainLayout } from '@/layouts';
-import { MarketSection } from './_components';
+import { Section } from './_components/GlobeSection/Section';
 import { PageTitle } from './_components/PageTitle';
 
 function Home() {
@@ -10,6 +8,8 @@ function Home() {
       <div className="h-screen justify-center items-center flex">
         <PageTitle />
       </div>
+      {/* FIXME: uncomment after finishing */}
+      {/* 
       <div className="h-60"></div>
       <div className="relative flex flex-col gap-8">
         <div className="flex flex-col gap-8 items-center px-6">
@@ -19,7 +19,7 @@ function Home() {
             </div>
             <span>New opportunities</span>
           </div>
-          <Halo className="-top-8" size={220} color="white" />
+          <Halo className="-top-8" height={220} color="white" />
 
           <FadeUpText>
             <Title level={2} className="text-center uppercase">
@@ -36,10 +36,14 @@ function Home() {
             View All coins
             <ArrowRight className="w-4 h-4" />
           </button>
-        </div>
-        <MarketSection />
-      </div>
-      <div className="h-screen"></div>
+        </div> */}
+      {/* <MarketSection /> */}
+      {/* </div> */}
+      {/* <div className="h-screen"></div> */}
+      {/* <Section2 />
+      <Section /> */}
+      <Section />
+      <div className="h-screen" />
     </MainLayout>
   );
 }
