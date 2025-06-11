@@ -1,7 +1,7 @@
 'use client';
 
 import { useIsMobile } from '@/hooks';
-import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useInView, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { FadeUpText, FadeUpWords, Title } from '../../../../design';
 import { CardsMarquee } from './CardsMarquee';
@@ -9,10 +9,11 @@ import { Globe } from './Globe';
 import { LatestTrades } from './LatestTrades';
 import { LiveTradeStatus } from './LiveTradeStatus';
 import { StarSky } from './StarSky';
-import { TotalTrades } from './TradeCounter';
+import { TotalTrades } from './TotalTrades';
 
 export const GlobeSection = () => {
   const ref = useRef(null);
+  const totalTradesRef = useRef(null);
   const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
@@ -20,7 +21,9 @@ export const GlobeSection = () => {
     target: ref,
   });
 
-  const globeY = useTransform(scrollYProgress, [0, 1], ['-100px', !isMobile ? `${800 - 100 - 300}px` : '1600px']);
+  const isTotalTradesInView = useInView(totalTradesRef, { once: true });
+
+  const globeY = useTransform(scrollYProgress, [0, 1], ['-100px', !isMobile ? '400px' : '1600px']);
   const globeX = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '0%' : '20%']);
 
   const slideShowY = useTransform(scrollYProgress, [0.3, 0.7], ['0', '-200px']);
@@ -36,7 +39,6 @@ export const GlobeSection = () => {
 
   return (
     <div className=" flex flex-col items-center relative">
-      {/* <Halo height={800} width={200}></Halo> */}
       <div className=" flex flex-col gap-5 items-center">
         <div className="text-center">
           <FadeUpText>
@@ -58,12 +60,15 @@ export const GlobeSection = () => {
         />
       </div>
       <AnimatePresence>
-        <motion.div ref={ref} className="h-[2000px] md:h-[calc(800px)] pt-[100px] overflow-hidden flex flex-col relative w-full">
+        <motion.div ref={ref} className="h-[2000px] md:h-[800px] pt-[100px] overflow-hidden flex flex-col relative w-full">
           <div className="absolute w-full  z-10">
             <motion.div style={{ top: globeY, left: globeX }} className=" relative flex justify-center">
               <motion.div
                 className="absolute flex items-center justify-center left-[50%] translate-[-50%] z-20 top-[50%] "
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={isTotalTradesInView ? { scale: 1 } : {}}
                 style={{ opacity: tradeCountOpacity }}
+                ref={totalTradesRef}
               >
                 <TotalTrades defaultValue={1000} count={3_238_563} />
               </motion.div>
