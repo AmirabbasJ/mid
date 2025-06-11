@@ -1,7 +1,7 @@
 'use client';
 
 import createGlobe, { type COBEOptions } from 'cobe';
-import { motion, MotionValue, useTransform } from 'motion/react';
+import { motion, MotionValue, useInView, useTransform } from 'motion/react';
 import { useEffect, useRef } from 'react';
 
 interface Props {
@@ -11,11 +11,11 @@ interface Props {
 
 export const GlobeSection = ({ scrollProgress, isMobile }: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  // const canvasRefMobile = useRef<HTMLCanvasElement>(null);
 
+  const isInView = useInView(canvasRef, { once: true });
   const firstDropShadow = useTransform(scrollProgress, [0.3, 1], ['#000', '#91A0FF']);
   const secondDropShadow = useTransform(scrollProgress, [0.3, 1], ['#000', '#91A0FF60']);
-  const scale = useTransform(scrollProgress, [0.2, 1], [1, 1.5]);
+  const scale = useTransform(scrollProgress, [0, 0.6, 1], [1, 1.25, 1.75]);
 
   const filter = useTransform(() => {
     return `drop-shadow(0px 0px 1rem ${firstDropShadow.get()}) drop-shadow(0px 0px 10rem ${secondDropShadow.get()})`;
@@ -45,17 +45,17 @@ export const GlobeSection = ({ scrollProgress, isMobile }: Props) => {
       },
     };
     const globe = createGlobe(canvasRef.current!, setting);
-    // const globeMobile = createGlobe(canvasRef.current!, {...setting, width: 400 * 2, height: 00});
 
     return () => {
       globe.destroy();
-      // globeMobile.destroy();
     };
   }, []);
 
   return (
     <>
       <motion.canvas
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : {}}
         ref={canvasRef}
         style={{
           scale: isMobile ? scale : 1,
