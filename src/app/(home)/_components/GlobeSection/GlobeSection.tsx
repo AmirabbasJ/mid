@@ -1,9 +1,16 @@
 'use client';
 
-import { useIsMobile } from '@/hooks';
-import { AnimatePresence, motion, useInView, useScroll, useTransform } from 'motion/react';
-import { useRef } from 'react';
-import { FadeUpText, FadeUpWords, Title } from '../../../../design';
+import { FadeUpText, FadeUpWords, Title } from '@/design';
+import type { Location } from '@/domain';
+import { useIsMobile, useTrades } from '@/hooks';
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+} from 'motion/react';
+import { useRef, useState } from 'react';
 import { CardsMarquee } from './CardsMarquee';
 import { Globe } from './Globe';
 import { LatestTrades } from './LatestTrades';
@@ -14,7 +21,11 @@ import { TotalTrades } from './TotalTrades';
 export const GlobeSection = () => {
   const ref = useRef(null);
   const totalTradesRef = useRef(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+    null,
+  );
   const isMobile = useIsMobile();
+  const { trades: allTrades } = useTrades();
 
   const { scrollYProgress } = useScroll({
     offset: isMobile ? ['start 30%', 'end 100%'] : ['start start', 'end 70%'],
@@ -23,14 +34,30 @@ export const GlobeSection = () => {
 
   const isTotalTradesInView = useInView(totalTradesRef, { once: true });
 
-  const globeY = useTransform(scrollYProgress, [0, 1], ['-100px', !isMobile ? '400px' : '1600px']);
-  const globeX = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '0%' : '20%']);
+  const globeY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['-100px', !isMobile ? '350px' : '1600px'],
+  );
+  const globeX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['0%', isMobile ? '0%' : '20%'],
+  );
 
   const slideShowY = useTransform(scrollYProgress, [0.3, 0.7], ['0', '-200px']);
   const slideShowOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const skyOpacity = useTransform(scrollYProgress, [0.3, isMobile ? 1 : 0.7], [0, 1]);
-  const skyY = useTransform(scrollYProgress, [0.3, isMobile ? 1 : 0.7], ['-200px', '0px']);
+  const skyOpacity = useTransform(
+    scrollYProgress,
+    [0.3, isMobile ? 1 : 0.7],
+    [0, 1],
+  );
+  const skyY = useTransform(
+    scrollYProgress,
+    [0.3, isMobile ? 1 : 0.7],
+    ['-200px', '0px'],
+  );
 
   const tradeCountOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
@@ -60,9 +87,15 @@ export const GlobeSection = () => {
         />
       </div>
       <AnimatePresence>
-        <motion.div ref={ref} className="h-[2000px] md:h-[800px] pt-[100px] overflow-hidden flex flex-col relative w-full">
+        <motion.div
+          ref={ref}
+          className="h-[2000px] md:h-[800px] pt-[100px] overflow-hidden flex flex-col relative w-full"
+        >
           <div className="absolute w-full  z-10">
-            <motion.div style={{ top: globeY, left: globeX }} className=" relative flex justify-center">
+            <motion.div
+              style={{ top: globeY, left: globeX }}
+              className=" relative flex justify-center"
+            >
               <motion.div
                 className="absolute flex items-center justify-center left-[50%] translate-[-50%] z-20 top-[50%] "
                 initial={{ opacity: 0, scale: 0.7 }}
@@ -72,10 +105,17 @@ export const GlobeSection = () => {
               >
                 <TotalTrades defaultValue={1000} count={3_238_563} />
               </motion.div>
-              <Globe scrollProgress={scrollYProgress} />
+              <Globe
+                selectedLocation={selectedLocation}
+                trades={allTrades}
+                scrollProgress={scrollYProgress}
+              />
             </motion.div>
           </div>
-          <motion.div style={{ opacity: slideShowOpacity, y: slideShowY }} className=" flex flex-col gap-5">
+          <motion.div
+            style={{ opacity: slideShowOpacity, y: slideShowY }}
+            className=" flex flex-col gap-5"
+          >
             <CardsMarquee />
             <CardsMarquee direction="left" />
           </motion.div>
@@ -105,7 +145,10 @@ export const GlobeSection = () => {
               className="absolute w-full flex justify-center z-20 bottom-0 pb-4"
             >
               <div className="relative left-auto md:left-[20%]">
-                <LatestTrades />
+                <LatestTrades
+                  setSelectedLocation={setSelectedLocation}
+                  trades={allTrades}
+                />
               </div>
             </motion.div>
           </motion.div>

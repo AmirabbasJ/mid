@@ -1,4 +1,5 @@
 import type { FC, SVGProps } from 'react';
+import type { Location } from './Location';
 
 export const TradeType = {
   long: 'long',
@@ -13,4 +14,5 @@ export interface Trade {
   icon: FC<SVGProps<SVGElement>>;
   cost: number;
   type: TradeType;
+  location: Location;
 }

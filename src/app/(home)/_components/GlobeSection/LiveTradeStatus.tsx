@@ -1,10 +1,10 @@
 'use client';
 
+import { Title } from '@/design';
+import { separateThousand } from '@/utils';
 import { animate } from 'motion';
 import { useInView } from 'motion/react';
-import { useRef } from 'react';
-import { Title } from '../../../../design';
-import { separateThousand } from '../../../../utils';
+import { useRef, useState } from 'react';
 
 interface Props {
   defaultCount: number;
@@ -14,12 +14,17 @@ interface Props {
 export function LiveTradeStatus({ defaultCount, count }: Props) {
   const ref = useRef<HTMLHeadingElement>(null);
   const isInView = useInView(ref, { once: true });
-  if (isInView)
+  const [played, setPlayed] = useState(false);
+  if (isInView && !played)
     animate(defaultCount, count, {
       duration: 2,
       ease: 'easeInOut',
       onUpdate(latest) {
-        if (ref?.current) ref!.current!.textContent = separateThousand(Math.floor(latest));
+        if (ref?.current)
+          ref!.current!.textContent = separateThousand(Math.floor(latest));
+      },
+      onComplete() {
+        setPlayed(true);
       },
     });
 
@@ -41,11 +46,15 @@ export function LiveTradeStatus({ defaultCount, count }: Props) {
 
       <div className="flex gap-6">
         <div className="bg-gray-900 rounded-lg px-3 py-2 text-left flex flex-col gap-2">
-          <h3 className="text-teal-400 text-lg md:text-xs text-nowrap">Long Trades ↝</h3>
+          <h3 className="text-teal-400 text-lg md:text-xs text-nowrap">
+            Long Trades ↝
+          </h3>
           <p className="text-xl md:text-sm font-semibold">1,234,876</p>
         </div>
         <div className="bg-gray-900 rounded-lg px-3 py-2 text-left flex flex-col gap-2">
-          <h3 className="text-pink-400 text-lg md:text-xs text-nowrap">Short Trades ↜</h3>
+          <h3 className="text-pink-400 text-lg md:text-xs text-nowrap">
+            Short Trades ↜
+          </h3>
           <p className="text-xl md:text-sm font-semibold">2,032,758</p>
         </div>
       </div>

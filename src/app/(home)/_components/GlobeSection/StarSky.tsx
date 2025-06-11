@@ -1,12 +1,16 @@
 'use client';
 
-import { type IOptions, MoveDirection, type RecursivePartial } from '@tsparticles/engine';
+import { useIsMobile } from '@/hooks';
+import {
+  type IOptions,
+  MoveDirection,
+  type RecursivePartial,
+} from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import { useEffect, useMemo, useState } from 'react';
-import { useIsMobile } from '../../../../hooks';
+import { memo, useEffect, useMemo, useState } from 'react';
 
-export const StarSky = () => {
+export const StarSky = memo(() => {
   const [init, setInit] = useState(false);
   const isMobile = useIsMobile();
 
@@ -60,5 +64,7 @@ export const StarSky = () => {
     [isMobile],
   );
 
-  return init ? <Particles id="tsparticles" className="w-full" options={options} /> : null;
-};
+  return init ? (
+    <Particles id="tsparticles" className="w-full" options={options} />
+  ) : null;
+});

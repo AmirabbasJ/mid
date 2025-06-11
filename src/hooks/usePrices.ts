@@ -1,7 +1,7 @@
+import { Btc, Doge, Eth, Popcat, Shiba, Tether, Ton } from '@/assets/icons';
 import type { Coin } from '@/domain';
 import { randomItemIndex, toSorted } from '@/utils';
 import { useEffect, useState } from 'react';
-import { Btc, Doge, Eth, Popcat, Shiba, Tether, Ton } from '../assets/icons';
 
 const initialCoins: Coin[] = [
   {
@@ -77,7 +77,13 @@ export const usePrices = ({ enabled = true }: Config = {}) => {
           const item = cs[index]!;
           const newPrice = genRandomPrice(item.price);
           const newCoins = cs.map((c, i) =>
-            i === index ? { ...item, price: newPrice, change: Number.parseFloat((newPrice - item.price).toFixed(2)) } : c,
+            i === index
+              ? {
+                  ...item,
+                  price: newPrice,
+                  change: Number.parseFloat((newPrice - item.price).toFixed(2)),
+                }
+              : c,
           );
           return toSorted(newCoins, (a, b) => b.change - a.change);
         });

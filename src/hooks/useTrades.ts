@@ -1,7 +1,7 @@
+import { Btc, Eth, Ton } from '@/assets/icons';
 import { TradeType, type Trade } from '@/domain';
-import { randomItemIndex } from '@/utils';
+import { getRandomLatLong, randomItemIndex } from '@/utils';
 import { useEffect, useState } from 'react';
-import { Btc, Eth, Ton } from '../assets/icons';
 
 const initialTrades = [
   {
@@ -25,7 +25,13 @@ const genRandomTrade = (): Trade => {
   const randomCost = parseFloat(num);
   const index = randomItemIndex(initialTrades.length);
   const item = initialTrades[index]!;
-  return { ...item, cost: randomCost, id: ++count, type: index % 2 === 0 ? TradeType.long : TradeType.short };
+  return {
+    ...item,
+    cost: randomCost,
+    id: ++count,
+    type: index % 2 === 0 ? TradeType.long : TradeType.short,
+    location: getRandomLatLong(),
+  };
 };
 
 interface Config {
@@ -33,28 +39,19 @@ interface Config {
 }
 
 export const useTrades = ({ enabled = true }: Config = {}) => {
-  const [trades, setTrades] = useState<Trade[]>([genRandomTrade(), genRandomTrade(), genRandomTrade()]);
-  // const [loading, setLoading] = useState(true);
+  const [trades, setTrades] = useState<Trade[]>([
+    genRandomTrade(),
+    genRandomTrade(),
+    genRandomTrade(),
+  ]);
 
   useEffect(() => {
-    if (enabled) {
-      console.log('started updating');
-      const id = setInterval(() => {
-        setTrades(cs => [genRandomTrade(), ...cs.slice(0, 2)]);
-      }, 5000);
-      return () => {
-        clearInterval(id);
-      };
-    }
-    // if (loading && enabled) {
-    //   setTimeout(() => {
-    //     setLoading(false);
-    //     setTrades(initialTrades);
-    //   }, 500);
-    // }
-    console.log('updating disabled');
-
-    return;
+    const id = setInterval(() => {
+      setTrades(cs => [genRandomTrade(), ...cs.slice(0, 2)]);
+    }, 5000);
+    return () => {
+      clearInterval(id);
+    };
   }, [enabled]);
 
   return { trades };
