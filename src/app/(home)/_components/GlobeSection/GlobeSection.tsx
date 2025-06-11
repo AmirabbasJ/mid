@@ -1,6 +1,6 @@
 'use client';
 
-import { FadeUpText, FadeUpWords, Title } from '@/design';
+import { FadeUpText, FadeUpWords, Halo, Title } from '@/design';
 import type { Location } from '@/domain';
 import { useIsMobile, useTrades } from '@/hooks';
 import {
@@ -66,7 +66,7 @@ export const GlobeSection = () => {
 
   return (
     <div className=" flex flex-col items-center relative">
-      <div className=" flex flex-col gap-5 items-center">
+      <div className=" flex flex-col gap-5 items-center relative">
         <div className="text-center">
           <FadeUpText>
             <Title level={2} className="uppercase  text-indigo-500">
@@ -85,6 +85,7 @@ export const GlobeSection = () => {
           muted
           text="Join thousands of traders who trust Technance—backed by impressive stats and real user testimonials"
         />
+        <Halo className="-top-8" size={200} color="white" />
       </div>
       <AnimatePresence>
         <motion.div

@@ -61,7 +61,7 @@ export const Globe = ({ scrollProgress, trades, selectedLocation }: Props) => {
   });
 
   const filter = useTransform(() => {
-    return `drop-shadow(0px 0px 1rem ${firstDropShadow.get()}) drop-shadow(0px 0px 10rem ${secondDropShadow.get()})`;
+    return `drop-shadow(0px 0px 1rem ${firstDropShadow.get()}) drop-shadow(0px 0px 1rem ${secondDropShadow.get()})`;
   });
 
   const globeSize = windowWidth > 600 ? 600 * 2 : (windowWidth - 10) * 2;

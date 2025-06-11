@@ -1,11 +1,17 @@
 'use client';
 
-import { ChevronLeft, ChevronRight, Flame, Star, TrendingUp } from '@/assets/icons';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Flame,
+  Star,
+  TrendingUp,
+} from '@/assets/icons';
 import { useSlider } from '@/hooks';
 import { cn } from '@/utils';
-import { MarketBox } from '../MarketBox';
+import { MarketBox } from '../../MarketBox';
 
-export const MarketSectionMobile = () => {
+export const MarketListMobile = () => {
   const {
     sliderRef,
     onPrevButtonClick,
@@ -63,7 +69,10 @@ export const MarketSectionMobile = () => {
           <button
             key={index}
             onClick={() => onDotButtonClick(index)}
-            className={cn('cursor-pointer w-2 h-2 rounded-full ', index === selectedIndex ? 'bg-indigo-500' : 'bg-gray-300')}
+            className={cn(
+              'cursor-pointer w-2 h-2 rounded-full ',
+              index === selectedIndex ? 'bg-indigo-500' : 'bg-gray-300',
+            )}
           />
         ))}
       </div>
