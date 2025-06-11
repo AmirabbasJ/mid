@@ -1,5 +1,6 @@
 import { font } from '@/design';
 import type { Metadata } from 'next';
+import { IsMobileProvider } from '../context/IsMobileContext';
 import '../styles/globals.css';
 import '../styles/slider.css';
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <IsMobileProvider>{children}</IsMobileProvider>
+        </div>
       </body>
     </html>
   );

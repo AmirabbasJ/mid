@@ -1,16 +1,17 @@
 import { cn } from '@/utils';
 import React from 'react';
 
-export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
-  size?: 'sm' | 'base' | 'lg';
-  muted?: boolean;
-}
-
 const sizeMap = {
+  xs: 'text-xs',
   sm: 'text-sm',
   base: 'text-base',
   lg: 'text-lg',
 };
+
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  size?: keyof typeof sizeMap;
+  muted?: boolean;
+}
 
 export const Text = ({ size = 'base', muted = false, className, children, ...props }: TextProps) => {
   return (

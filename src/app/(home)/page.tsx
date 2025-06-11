@@ -1,5 +1,5 @@
 import { MainLayout } from '@/layouts';
-import { Section } from './_components/GlobeSection/Section';
+import { GlobeSection } from './_components/GlobeSection/GlobeSection';
 import { PageTitle } from './_components/PageTitle';
 
 function Home() {
@@ -42,7 +42,7 @@ function Home() {
       {/* <div className="h-screen"></div> */}
       {/* <Section2 />
       <Section /> */}
-      <Section />
+      <GlobeSection />
       <div className="h-screen" />
     </MainLayout>
   );

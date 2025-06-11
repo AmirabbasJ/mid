@@ -1,82 +1,111 @@
 'use client';
 
-import createGlobe, { type COBEOptions } from 'cobe';
-import { motion, MotionValue, useInView, useTransform } from 'motion/react';
-import { useEffect, useRef } from 'react';
+import { useIsMobile } from '@/hooks';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
+import { useRef } from 'react';
+import { FadeUpText, FadeUpWords, Title } from '../../../../design';
+import { CardsMarquee } from './CardsMarquee';
+import { Globe } from './Globe';
+import { LatestTrades } from './LatestTrades';
+import { LiveTradeStatus } from './LiveTradeStatus';
+import { StarSky } from './StarSky';
+import { TotalTrades } from './TradeCounter';
 
-interface Props {
-  scrollProgress: MotionValue<number>;
-  isMobile?: boolean;
-}
+export const GlobeSection = () => {
+  const ref = useRef(null);
+  const isMobile = useIsMobile();
 
-export const GlobeSection = ({ scrollProgress, isMobile }: Props) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const isInView = useInView(canvasRef, { once: true });
-  const firstDropShadow = useTransform(scrollProgress, [0.3, 1], ['#000', '#91A0FF']);
-  const secondDropShadow = useTransform(scrollProgress, [0.3, 1], ['#000', '#91A0FF60']);
-  const scale = useTransform(scrollProgress, [0, 0.6, 1], [1, 1.25, 1.75]);
-
-  const filter = useTransform(() => {
-    return `drop-shadow(0px 0px 1rem ${firstDropShadow.get()}) drop-shadow(0px 0px 10rem ${secondDropShadow.get()})`;
+  const { scrollYProgress } = useScroll({
+    offset: isMobile ? ['start 30%', 'end 100%'] : ['start start', 'end 70%'],
+    target: ref,
   });
 
-  useEffect(() => {
-    let phi = 0;
-    const setting: COBEOptions = {
-      devicePixelRatio: 2,
-      width: 600 * 2,
-      height: 600 * 2,
-      phi: phi,
-      theta: 0,
-      dark: 0.6,
-      diffuse: 1,
-      mapSamples: 55000,
-      opacity: 1,
-      mapBrightness: 3.4,
-      mapBaseBrightness: 0,
-      baseColor: [94 / 255, 110 / 255, 255 / 255],
-      markerColor: [0.1, 0.8, 1],
-      glowColor: [145 / 255, 160 / 255, 255 / 255],
-      markers: [],
-      onRender: state => {
-        state['phi'] = phi;
-        phi += 0.008;
-      },
-    };
-    const globe = createGlobe(canvasRef.current!, setting);
+  const globeY = useTransform(scrollYProgress, [0, 1], ['-100px', !isMobile ? `${800 - 100 - 300}px` : '1600px']);
+  const globeX = useTransform(scrollYProgress, [0, 1], ['0%', isMobile ? '0%' : '20%']);
 
-    return () => {
-      globe.destroy();
-    };
-  }, []);
+  const slideShowY = useTransform(scrollYProgress, [0.3, 0.7], ['0', '-200px']);
+  const slideShowOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const skyOpacity = useTransform(scrollYProgress, [0.3, isMobile ? 1 : 0.7], [0, 1]);
+  const skyY = useTransform(scrollYProgress, [0.3, isMobile ? 1 : 0.7], ['-200px', '0px']);
+
+  const tradeCountOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+
+  const latestTradesOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
+  const latestTradesX = useTransform(scrollYProgress, [0.8, 1], [-50, 0]);
 
   return (
-    <>
-      <motion.canvas
-        initial={{ opacity: 0, scale: 0.7 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-        ref={canvasRef}
-        style={{
-          scale: isMobile ? scale : 1,
-          width: 600,
-          height: 600,
-          maxWidth: '100%',
-          aspectRatio: 1,
-          filter: filter,
-        }}
-      />
-      {/* <motion.canvas
-      ref={canvasRefMobile}
-      className="md:hidden"
-      style={{
-        width: 400,
-        height: 400,
-        maxWidth: '100%',
-        aspectRatio: 1,
-        filter: filter,
-      }}
-    /> */}
-    </>
+    <div className=" flex flex-col items-center relative">
+      {/* <Halo height={800} width={200}></Halo> */}
+      <div className=" flex flex-col gap-5 items-center">
+        <div className="text-center">
+          <FadeUpText>
+            <Title level={2} className="uppercase  text-indigo-500">
+              Trusted by trades
+            </Title>
+          </FadeUpText>
+          <FadeUpText>
+            <Title level={2} className="uppercase">
+              Proven by results
+            </Title>
+          </FadeUpText>
+        </div>
+        <FadeUpWords
+          containerClassName="justify-center max-w-[470px]"
+          size="sm"
+          muted
+          text="Join thousands of traders who trust Technance—backed by impressive stats and real user testimonials"
+        />
+      </div>
+      <AnimatePresence>
+        <motion.div ref={ref} className="h-[2000px] md:h-[calc(800px)] pt-[100px] overflow-hidden flex flex-col relative w-full">
+          <div className="absolute w-full  z-10">
+            <motion.div style={{ top: globeY, left: globeX }} className=" relative flex justify-center">
+              <motion.div
+                className="absolute flex items-center justify-center left-[50%] translate-[-50%] z-20 top-[50%] "
+                style={{ opacity: tradeCountOpacity }}
+              >
+                <TotalTrades defaultValue={1000} count={3_238_563} />
+              </motion.div>
+              <Globe scrollProgress={scrollYProgress} />
+            </motion.div>
+          </div>
+          <motion.div style={{ opacity: slideShowOpacity, y: slideShowY }} className=" flex flex-col gap-5">
+            <CardsMarquee />
+            <CardsMarquee direction="left" />
+          </motion.div>
+          <motion.div className="bottom-0 absolute left-0 w-full">
+            <motion.div
+              style={{
+                bottom: skyY,
+                opacity: skyOpacity,
+              }}
+            >
+              <StarSky />
+            </motion.div>
+            <motion.div
+              style={{
+                bottom: skyY,
+                opacity: skyOpacity,
+              }}
+              className="p-8 absolute top-0 md:top-[50%] md:translate-y-[-50%] z-20 md:left-0 left-[50%] translate-x-[-50%] md:translate-x-[0%] "
+            >
+              <LiveTradeStatus defaultCount={1000} count={3_238_563} />
+            </motion.div>
+            <motion.div
+              style={{
+                opacity: latestTradesOpacity,
+                x: latestTradesX,
+              }}
+              className="absolute w-full flex justify-center z-20 bottom-0 pb-4"
+            >
+              <div className="relative left-auto md:left-[20%]">
+                <LatestTrades />
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
