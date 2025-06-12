@@ -64,6 +64,9 @@ export const GlobeSection = () => {
   const latestTradesOpacity = useTransform(scrollYProgress, [0.8, 1], [0, 1]);
   const latestTradesX = useTransform(scrollYProgress, [0.8, 1], [-50, 0]);
 
+  const topShadowOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const bottomShadowOpacity = latestTradesOpacity;
+
   return (
     <div className=" flex flex-col items-center relative">
       <div className=" flex flex-col gap-5 items-center relative">
@@ -106,11 +109,17 @@ export const GlobeSection = () => {
               >
                 <TotalTrades defaultValue={1000} count={3_238_563} />
               </motion.div>
-              <Globe
-                selectedLocation={selectedLocation}
-                trades={allTrades}
-                scrollProgress={scrollYProgress}
-              />
+              <div className="relative">
+                <Globe
+                  selectedLocation={selectedLocation}
+                  trades={allTrades}
+                  scrollProgress={scrollYProgress}
+                />
+                <motion.div
+                  style={{ opacity: topShadowOpacity }}
+                  className="bg-black rounded-full absolute left-[50%] translate-x-[-50%] bottom-0 w-[100px] h-[100px] shadow-[0px_-100px_300px_250px_black] "
+                />
+              </div>
             </motion.div>
           </div>
           <motion.div
@@ -155,6 +164,10 @@ export const GlobeSection = () => {
           </motion.div>
         </motion.div>
       </AnimatePresence>
+      <motion.div
+        style={{ opacity: bottomShadowOpacity }}
+        className="z-50 bg-black rounded-full absolute right-[120px] top-[100%] w-[50px] h-[50px] shadow-[0px_0px_200px_100px_black] "
+      />
     </div>
   );
 };

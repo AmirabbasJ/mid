@@ -147,7 +147,7 @@ export const Globe = ({ scrollProgress, trades, selectedLocation }: Props) => {
           aspectRatio: 1,
           filter: filter,
         }}
-      />
+      ></motion.canvas>
     </>
   );
 };
