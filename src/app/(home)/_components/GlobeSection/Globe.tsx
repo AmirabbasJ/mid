@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 const locationToAngles = ([lat, long]: [number, number]): [number, number] => {
   return [
     Math.PI - ((long * Math.PI) / 180 - Math.PI / 2),
-    (lat * Math.PI) / 180,
+    ((lat - 30) * Math.PI) / 180,
   ];
 };
 
@@ -108,6 +108,7 @@ export const Globe = ({ scrollProgress, trades, selectedLocation }: Props) => {
           } else {
             phi -= distNegative * 0.08;
           }
+
           theta = theta * 0.92 + focusTheta * 0.08;
           const dist =
             distPositive < distNegative ? distPositive : distNegative;

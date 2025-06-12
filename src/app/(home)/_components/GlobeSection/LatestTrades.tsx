@@ -37,7 +37,7 @@ export const LatestTrades = ({
                     setSelectedLocation(trade.location);
                   }}
                   className={cn(
-                    'cursor-pointer w-full max-w-[400px] md:max-w-[240px] bg-white px-5 md:px-3 py-3 md:py-1 flex gap-3 md:gap-2 rounded-full justify-between items-center',
+                    'cursor-pointer w-full max-w-[410px] md:max-w-[240px] bg-white px-5 md:px-3 py-3 md:py-1 flex gap-3 md:gap-2 rounded-full justify-between items-center',
                   )}
                 >
                   <div className="flex gap-1 items-center">
