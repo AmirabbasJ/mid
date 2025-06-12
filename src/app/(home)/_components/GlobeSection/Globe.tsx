@@ -17,6 +17,7 @@ const locationToAngles = ([lat, long]: [number, number]): [number, number] => {
     (lat * Math.PI) / 180,
   ];
 };
+
 interface Props {
   scrollProgress: MotionValue<number>;
   trades: Trade[];
@@ -25,19 +26,18 @@ interface Props {
 
 let phi = 0;
 let theta = 0;
-
 export const Globe = ({ scrollProgress, trades, selectedLocation }: Props) => {
   const isMobile = useIsMobile();
   const tradesRef = useRef(trades);
   const focusRef = useRef<[number, number] | null>(null);
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(600);
   const [animationEnded, setAnimationEnded] = useState(false);
   useEffect(() => {
     const widthSetter = () => {
       setWindowWidth(window.innerWidth);
     };
-
+    widthSetter();
     window.addEventListener('resize', widthSetter);
     return () => window.removeEventListener('resize', widthSetter);
   }, []);
@@ -55,6 +55,7 @@ export const Globe = ({ scrollProgress, trades, selectedLocation }: Props) => {
     [0.3, 1],
     ['#000', '#91A0FF40'],
   );
+
   const scale = useTransform(scrollProgress, [0, 0.6, 1], [1, 1.25, 1.75]);
   useMotionValueEvent(scrollProgress, 'change', v => {
     setAnimationEnded(v === 1);
@@ -64,7 +65,7 @@ export const Globe = ({ scrollProgress, trades, selectedLocation }: Props) => {
     return `drop-shadow(0px 0px 1rem ${firstDropShadow.get()}) drop-shadow(0px 0px 1rem ${secondDropShadow.get()})`;
   });
 
-  const globeSize = windowWidth > 600 ? 600 * 2 : (windowWidth - 10) * 2;
+  const globeSize = windowWidth >= 600 ? 600 * 2 : (windowWidth - 10) * 2;
 
   useEffect(() => {
     tradesRef.current = animationEnded ? trades : [];

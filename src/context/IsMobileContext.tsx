@@ -6,9 +6,15 @@ interface IsMobileContextType {
   isMobile: boolean;
 }
 
-export const IsMobileContext = createContext<IsMobileContextType>({ isMobile: false });
+export const IsMobileContext = createContext<IsMobileContextType>({
+  isMobile: false,
+});
 
-export const IsMobileProvider = ({ children }: { children: React.ReactNode }) => {
+export const IsMobileProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -21,5 +27,9 @@ export const IsMobileProvider = ({ children }: { children: React.ReactNode }) =>
     return () => window.removeEventListener('resize', setter);
   }, []);
 
-  return <IsMobileContext.Provider value={{ isMobile }}>{children}</IsMobileContext.Provider>;
+  return (
+    <IsMobileContext.Provider value={{ isMobile }}>
+      {children}
+    </IsMobileContext.Provider>
+  );
 };
